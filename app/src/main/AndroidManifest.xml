@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.myapplication"
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-feature
@@ -20,25 +21,14 @@
         android:theme="@style/Theme.Bao_Cao_Android_GiuaKy"
         tools:targetApi="31">
         <activity android:name=".QuanLyActivity" />
-<!--        <activity android:name=".DienThoai" />-->
-<!--        <activity android:name=".PhuKien" />-->
-<!--        <activity android:name=".Thongke" />-->
+        <activity android:name=".Phone.PhoneListActivity" />
+        <activity android:name=".Phone.AddPhoneActivity" />
+        <activity android:name=".Phone.EditPhoneActivity" />
+        <activity android:name=".Accessory.AccessoryListActivity" />
+        <activity android:name=".Accessory.AddAccessoryActivity" />
+        <activity android:name=".Accessory.EditAccessoryActivity" />
+        <activity android:name=".Report.ReportActivity" />
 
-        <activity
-            android:name=".About"
-            android:exported="false" />
-        <activity
-            android:name=".Acti_Update_Loai"
-            android:exported="false" />
-        <activity
-            android:name=".Acti_Update_Laptop"
-            android:exported="false" />
-        <activity
-            android:name=".Acti_Laptop"
-            android:exported="false" />
-        <activity
-            android:name=".Acti_Loai"
-            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

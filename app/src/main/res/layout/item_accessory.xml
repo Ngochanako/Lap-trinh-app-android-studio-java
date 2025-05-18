@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/imgAccessory"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/txtAccessoryName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tên phụ kiện"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtAccessoryPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Giá"
+        android:textSize="14sp"
+        android:textColor="#FF5722" />
+
+    <TextView
+        android:id="@+id/txtAccessoryBrand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thương hiệu"
+        android:textSize="14sp" />
+
+    <!-- ✅ Thêm mô tả phụ kiện -->
+    <TextView
+        android:id="@+id/txtAccessoryDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mô tả phụ kiện"
+        android:textSize="13sp"
+        android:textColor="#666666"
+        android:paddingTop="4dp"
+        android:maxLines="3"
+        android:ellipsize="end" />
+
+    <!-- Layout chứa nút Sửa và Xóa -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="start"
+        android:paddingTop="5dp">
+
+        <ImageButton
+            android:id="@+id/btnEditAccessory"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_edit"
+            android:contentDescription="Chỉnh sửa phụ kiện"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="#FFC107"
+            android:padding="8dp" />
+
+        <ImageButton
+            android:id="@+id/btnDeleteAccessory"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_delete"
+            android:contentDescription="Xóa phụ kiện"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="#F44336"
+            android:padding="8dp"
+            android:layout_marginStart="10dp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Ảnh phụ kiện -->
+        <ImageView
+            android:id="@+id/imgPreview"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_placeholder_foreground" />
+
+        <!-- Nút đổi ảnh -->
+        <Button
+            android:id="@+id/btnChooseImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đổi ảnh"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Tên phụ kiện -->
+        <EditText
+            android:id="@+id/edtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tên phụ kiện"
+            android:minHeight="48dp"
+            android:inputType="text"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Mô tả phụ kiện -->
+        <EditText
+            android:id="@+id/edtDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Mô tả"
+            android:inputType="textMultiLine"
+            android:minHeight="48dp"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Thương hiệu tương thích -->
+        <EditText
+            android:id="@+id/edtCompatibleBrand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Thương hiệu"
+            android:minHeight="48dp"
+            android:inputType="text"
+            android:layout_marginTop="10dp"/>
+        <!-- Loại phụ kiện -->
+        <Spinner
+            android:id="@+id/spinnerAccessoryType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_background"
+            android:padding="10dp" />
+        <!-- Giá phụ kiện -->
+        <EditText
+            android:id="@+id/edtPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Giá phụ kiện"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Nút Cập nhật -->
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#2196F3"
+            android:text="Cập nhật"
+            android:textColor="#FFFFFF" />
+
+        <!-- Nút Hủy -->
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hủy"
+            android:textColor="@android:color/white"
+            android:padding="12dp"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+</ScrollView>

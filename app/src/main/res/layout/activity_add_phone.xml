@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Chọn ảnh điện thoại -->
+    <ImageView
+        android:id="@+id/imgPreview"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_placeholder_foreground" />
+
+    <Button
+        android:id="@+id/btnChooseImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chọn ảnh"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"/>
+
+    <!-- Nhập tên điện thoại -->
+    <EditText
+        android:id="@+id/edtName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tên điện thoại"
+        android:minHeight="48dp"
+        android:inputType="text"
+        android:layout_marginTop="10dp"/>
+
+    <!-- Nhập giá điện thoại -->
+    <EditText
+        android:id="@+id/edtPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Giá điện thoại"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp"
+        android:layout_marginTop="10dp"/>
+
+    <!-- Nhập thương hiệu -->
+    <EditText
+        android:id="@+id/edtBrand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Thương hiệu"
+        android:minHeight="48dp"
+        android:inputType="text"
+        android:layout_marginTop="10dp"/>
+
+    <!-- Nút Lưu -->
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#4CAF40"
+        android:text="Lưu"
+        android:textColor="#FFFFFF" />
+    <!-- Nút Hủy -->
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hủy"
+        android:textColor="@android:color/white"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:layout_marginTop="10dp"/>
+</LinearLayout>

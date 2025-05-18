@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Bao_Cao_Android_GiuaKy</string>
+    <string-array name="accessory_types_array">
+        <item>Ốp lưng</item>
+        <item>Tai nghe</item>
+        <item>Sạc</item>
+        <item>Khác</item>
+    </string-array>
 </resources>

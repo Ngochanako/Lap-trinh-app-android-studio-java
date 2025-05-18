@@ -10,47 +10,44 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myapplication.Modal.User;
 
 public class MainActivity extends AppCompatActivity {
-
+    EditText edtUsername, edtPassword;
+    Button btnLogin;
     DBHelper dbHelper;
-    Button btnDN ;
-    EditText edttk ,edtmk;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        edtUsername = findViewById(R.id.edtUsername);
+        edtPassword = findViewById(R.id.edtPassword);
+        btnLogin = findViewById(R.id.btnLogin);
         dbHelper = new DBHelper(this);
-//        User user = new User("admin","admin");
-//        dbHelper.insertUser(user);
 
-        addControls();
-        addEvents();
-    }
+        btnLogin.setOnClickListener(v -> {
+            String user = edtUsername.getText().toString().trim();
+            String pass = edtPassword.getText().toString().trim();
 
-    private void addEvents() {
-        btnDN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(dbHelper.checkUser(edttk.getText().toString(),edtmk.getText().toString())){
-                    Intent intent = new Intent(MainActivity.this , QuanLyActivity.class);
-                    startActivity(intent);
-                }else{
-                    Toast.makeText(MainActivity.this, "Tài khoản hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
-                }
-
+            if (dbHelper.loginUser(user, pass)) {
+                Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                // ✅ Delay 2 giây rồi chuyển màn hình
+                new android.os.Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(MainActivity.this, QuanLyActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }, 2000);
+            } else {
+                Toast.makeText(this, "Sai tài khoản hoặc mật khẩu", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void addControls() {
-        btnDN = findViewById(R.id.btnDangNhap);
-        edttk=findViewById(R.id.edtTK);
-        edtmk=findViewById(R.id.edtMK);
-
     }
 }
