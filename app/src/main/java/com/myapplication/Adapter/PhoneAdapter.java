@@ -3,6 +3,8 @@ package com.myapplication.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.myapplication.DBHelper;
 import com.myapplication.Modal.DienThoai;
 import com.myapplication.Phone.EditPhoneActivity;
@@ -43,14 +46,18 @@ public class PhoneAdapter extends RecyclerView.Adapter<PhoneAdapter.ViewHolder> 
         holder.txtPrice.setText(String.format("%,.0f VND", phone.getPrice()));
         holder.txtBrand.setText(phone.getBrand());
 
-        // Chuyển chuỗi ảnh thành ID trong drawable
-        int imageId = context.getResources().getIdentifier(phone.getImageResId(), "drawable", context.getPackageName());
-
         // Kiểm tra nếu ảnh tồn tại thì hiển thị
-        if (imageId != 0) {
-            holder.imgPhone.setImageResource(imageId);
+        String imageUriStr = phone.getImageUri();
+
+        if (imageUriStr != null && !imageUriStr.isEmpty()) {
+            Uri imageUri = Uri.parse(imageUriStr);
+            Log.d("abc",imageUriStr);
+            Glide.with(context)  // context ở đây là từ Adapter
+                    .load(imageUri)
+                    .placeholder(R.drawable.iphone_14_pro)
+                    .error(R.drawable.iphone_14_pro)
+                    .into(holder.imgPhone);
         } else {
-            // Nếu không tìm thấy ảnh, đặt ảnh mặc định
             holder.imgPhone.setImageResource(R.drawable.iphone_14_pro);
         }
         // chuyển màn hình edit phone
@@ -60,7 +67,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<PhoneAdapter.ViewHolder> 
             intent.putExtra("name", phone.getName());
             intent.putExtra("price", phone.getPrice());
             intent.putExtra("brand", phone.getBrand());
-            intent.putExtra("image", phone.getImageResId());
+            intent.putExtra("image", phone.getImageUri());
             ((Activity) context).startActivityForResult(intent, 1002); // REQUEST_CODE_EDIT
         });
         // chuyển màn hình delete

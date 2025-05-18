@@ -99,7 +99,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("name", phone.getName());
         values.put("price", phone.getPrice());
         values.put("brand", phone.getBrand());
-        values.put("image", phone.getImageResId());
+        values.put("image", phone.getImageUri());
         db.insert("Phones", null, values);
         db.close();
     }
@@ -116,9 +116,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 String name = cursor.getString(1);
                 double price = cursor.getDouble(2);
                 String brand = cursor.getString(3);
-                String imageResId = cursor.getString(4);
+                String imageUri = cursor.getString(4);
 
-                phoneList.add(new DienThoai(id, name, price, brand, imageResId));
+                phoneList.add(new DienThoai(id, name, price, brand, imageUri));
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -140,7 +140,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("name", phone.getName());
         values.put("price", phone.getPrice());
         values.put("brand", phone.getBrand());
-        values.put("image", phone.getImageResId());
+        values.put("image", phone.getImageUri());
         int rowsAffected=db.update(TABLE_NAME, values, "id = ?", new String[]{String.valueOf(phone.getId())});
         Log.d("DB_UPDATE", "Rows affected: " + rowsAffected);
         db.close();
@@ -182,7 +182,7 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("id", accessory.getId());
         values.put("name", accessory.getName());
-        values.put("image", accessory.getImageResId());
+        values.put("image", accessory.getImageUri());
         values.put("description", accessory.getDescription());
         values.put("compatibleBrand", accessory.getCompatibleBrand());
         values.put("type",accessory.getTypeAccessory());
@@ -206,7 +206,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 String compatibleBrand = cursor.getString(4);
                 String type = cursor.getString(5); // 👈 Lấy cột "type"
                 double price = cursor.getDouble(6);
-
+                Log.d("LIST_IMAGE_NAME", "Image name loaded: " + imageResId);
                 accessoryList.add(new Accessory(id, name, imageResId, description, compatibleBrand, type, price));
             } while (cursor.moveToNext());
         }
@@ -228,7 +228,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("name", accessory.getName());
-        values.put("image", accessory.getImageResId());
+        values.put("image", accessory.getImageUri());
         values.put("description", accessory.getDescription());
         values.put("compatibleBrand", accessory.getCompatibleBrand());
         values.put("type", accessory.getTypeAccessory()); // 👈 Thêm loại

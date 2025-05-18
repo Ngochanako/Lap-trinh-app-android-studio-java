@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
+
+import com.bumptech.glide.Glide;
 import com.myapplication.DBHelper;
 import com.myapplication.Modal.Accessory;
 import com.myapplication.R;
@@ -67,7 +69,9 @@ public class AddAccessoryActivity extends AppCompatActivity {
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             selectedImageUri = data.getData();
-
+            Glide.with(this)
+                    .load(selectedImageUri)
+                    .into(imgAccessory);
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
                 imgAccessory.setImageBitmap(bitmap);
@@ -103,11 +107,21 @@ public class AddAccessoryActivity extends AppCompatActivity {
         }
 
         String imageUri = (selectedImageUri != null) ? selectedImageUri.toString() : "";
-        int id = (int) System.currentTimeMillis(); // Tạo ID duy nhất
+        int newId = (int) System.currentTimeMillis(); // Tạo ID duy nhất
 
-        Accessory accessory = new Accessory(id, name, imageUri, description, brand,type, price);
+        Accessory accessory = new Accessory(newId, name, imageUri, description, brand,type, price);
         dbHelper.insertAccessory(accessory);
+        // Trả kết quả về Activity trước
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("id", newId);
+        resultIntent.putExtra("name", name);
+        resultIntent.putExtra("price", price);
+        resultIntent.putExtra("brand", brand);
+        resultIntent.putExtra("imageUri", imageUri);
+        resultIntent.putExtra("description", description);
+        resultIntent.putExtra("type", type);
 
+        setResult(RESULT_OK, resultIntent);
         Toast.makeText(this, "Thêm phụ kiện thành công!", Toast.LENGTH_SHORT).show();
         finish();
     }

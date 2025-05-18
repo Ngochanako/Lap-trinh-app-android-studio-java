@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.myapplication.DBHelper;
 import com.myapplication.Modal.DienThoai;
 import com.myapplication.R;
@@ -25,7 +26,6 @@ public class AddPhoneActivity extends AppCompatActivity {
     private ImageView imgPhone;
     private Button btnSave, btnCancel, btnSelectImage;
     private DBHelper dbHelper;
-
     private Uri selectedImageUri; // Lưu URI ảnh đã chọn
 
     @Override
@@ -64,7 +64,9 @@ public class AddPhoneActivity extends AppCompatActivity {
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             selectedImageUri = data.getData(); // Lưu URI của ảnh đã chọn
-
+            Glide.with(this)
+                    .load(selectedImageUri)
+                    .into(imgPhone);
             try {
                 // Hiển thị ảnh trên ImageView
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
@@ -80,21 +82,19 @@ public class AddPhoneActivity extends AppCompatActivity {
         String name = edtName.getText().toString().trim();
         String priceStr = edtPrice.getText().toString().trim();
         String brand = edtBrand.getText().toString().trim();
-
         if (name.isEmpty() || priceStr.isEmpty() || brand.isEmpty()) {
             Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Kiểm tra tên điện thoại đã tồn tại chưa
         if (dbHelper.isPhoneNameExists(name)) {
             Toast.makeText(this, "Tên điện thoại đã tồn tại!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        int price;
+        double price;
         try {
-            price = Integer.parseInt(priceStr);
+            price = Double.parseDouble(priceStr);
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Giá phải là số!", Toast.LENGTH_SHORT).show();
             return;
@@ -102,16 +102,16 @@ public class AddPhoneActivity extends AppCompatActivity {
 
         int newId = (int) System.currentTimeMillis(); // Tạo ID duy nhất
 
-        // Kiểm tra xem người dùng có chọn ảnh không
+        // Nếu người dùng chọn ảnh từ thư viện, lưu URI thành chuỗi
         String imageUriString = (selectedImageUri != null) ? selectedImageUri.toString() : "";
 
-        // Tạo đối tượng điện thoại
+        // Dùng ảnh từ thư viện, nên để imageResId là chuỗi rỗng
         DienThoai newPhone = new DienThoai(newId, name, price, brand, imageUriString);
 
         // Lưu vào database
         dbHelper.insertPhone(newPhone);
 
-        // Gửi kết quả về PhoneListActivity
+        // Trả kết quả về Activity trước
         Intent resultIntent = new Intent();
         resultIntent.putExtra("id", newId);
         resultIntent.putExtra("name", name);
@@ -120,6 +120,7 @@ public class AddPhoneActivity extends AppCompatActivity {
         resultIntent.putExtra("imageUri", imageUriString);
 
         setResult(RESULT_OK, resultIntent);
+        Toast.makeText(this, "Thêm điện thoại thành công!", Toast.LENGTH_SHORT).show();
         finish();
     }
 }

@@ -3,15 +3,15 @@ package com.myapplication.Modal;
 public class Accessory {
     private int id;
     private String nameAccessory;
-    private String imageResIdAccessory;       // Image resource ID from drawable
+    private String imageUri;   // ảnh từ thư viện
     private String description;      // Description of the accessory
     private String compatibleBrand;  // Compatible phone brand
     private String type;
     private double priceAccessory;
-    public Accessory(int id, String name, String imageResId, String description, String compatibleBrand,String type, double price) {
+    public Accessory(int id, String name, String imageUri, String description, String compatibleBrand,String type, double price) {
         this.id = id;
         this.nameAccessory = name;
-        this.imageResIdAccessory = imageResId;
+        this.imageUri = imageUri;
         this.description = description;
         this.compatibleBrand = compatibleBrand;
         this.type=type;
@@ -26,8 +26,8 @@ public class Accessory {
         return nameAccessory;
     }
 
-    public String getImageResId() {
-        return imageResIdAccessory;
+    public String getImageUri() {
+        return imageUri;
     }
 
     public String getDescription() {

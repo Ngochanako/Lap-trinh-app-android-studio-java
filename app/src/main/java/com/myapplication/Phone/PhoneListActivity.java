@@ -41,11 +41,6 @@ public class PhoneListActivity extends AppCompatActivity {
         phoneList = dbHelper.getAllPhones();
         Log.d("DB_DEBUG", "Số lượng điện thoại trong DB: " + phoneList.size());
 
-        if (phoneList.isEmpty()) {
-            dbHelper.insertPhone(new DienThoai(1, "Samsung Galaxy S23", 19990000, "Samsung", "samsung_s23"));
-            dbHelper.insertPhone(new DienThoai(2, "iPhone 14 Pro", 28990000, "Apple", "iphone_14_pro"));
-            phoneList = dbHelper.getAllPhones();
-        }
 // hiển thị danh sách
         filteredList = new ArrayList<>(phoneList);
         adapter = new PhoneAdapter(this,filteredList);

@@ -43,12 +43,6 @@ public class AccessoryListActivity extends AppCompatActivity {
         dbHelper = new DBHelper(this);
         accessoryList = dbHelper.getAllAccessories();
 
-        if (accessoryList.isEmpty()) {
-            dbHelper.insertAccessory(new Accessory(1, "Ốp lưng iPhone 14", "case_iphone_14", "Ốp lưng chống sốc", "Apple","Ốp", 299000));
-            dbHelper.insertAccessory(new Accessory(2, "Tai nghe Galaxy Buds", "buds_samsung", "Tai nghe không dây", "Samsung","Tai nghe", 1599000));
-            accessoryList = dbHelper.getAllAccessories();
-        }
-
         Log.d("DB_DEBUG", "Số lượng phụ kiện: " + accessoryList.size());
 
         filteredList = new ArrayList<>(accessoryList);
@@ -87,6 +81,7 @@ public class AccessoryListActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if ((requestCode == ADD_ACCESSORY_REQUEST_CODE || requestCode == EDIT_ACCESSORY_REQUEST_CODE) && resultCode == RESULT_OK) {
             loadAccessoryList();
+            adapter.notifyDataSetChanged();
         }
     }
 
