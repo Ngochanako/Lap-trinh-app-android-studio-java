@@ -57,7 +57,7 @@
             android:id="@+id/btnDelete"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_delete"
+            android:src="@drawable/ic_trash"
             android:contentDescription="Xóa"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:tint="#F44336"

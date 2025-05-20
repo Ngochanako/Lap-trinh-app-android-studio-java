@@ -6,72 +6,75 @@
     android:layout_height="match_parent"
     tools:context=".QuanLyActivity">
 
-    <!-- Ảnh nền -->
+    <!-- Ảnh nền mờ -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@drawable/background_image"
-        android:alpha="0.8"/>
+        android:alpha="0.6" />
 
-    <!-- Thông tin người dùng -->
+    <!-- Khung thông tin người dùng -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="20dp"
-        android:background="@drawable/rounded_background"
+        android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:elevation="8dp">
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/ic_user"
-            android:scaleType="centerCrop"
-            />
+            android:tint="@android:color/white"
+            android:scaleType="centerCrop" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:paddingStart="12dp"
             android:text="Admin"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Khung chứa các nút chức năng -->
+    <!-- Khung chứa các nút -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="@drawable/rounded_background"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        android:elevation="12dp">
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:columnCount="2"
             android:rowCount="3"
-            android:padding="16dp"
-            android:layout_marginTop="20dp"
-            >
+            android:padding="8dp"
+            android:layout_marginTop="20dp">
 
-            <!-- Nút Điện thoại -->
+            <!-- Mẫu Card -->
             <androidx.cardview.widget.CardView
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                app:cardCornerRadius="16dp"
                 android:layout_margin="8dp"
                 android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:onClick="openDienThoai"
-               >
+                app:cardCornerRadius="20dp"
+                app:cardElevation="10dp"
+                app:cardBackgroundColor="@android:color/white">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -82,101 +85,121 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/ic_phone" />
+                        android:src="@drawable/ic_phone"
+                        android:tint="@color/purple_700" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Điện thoại"
+                        android:textColor="@color/purple_700"
                         android:textSize="16sp"
-                        android:textColor="@android:color/black" />
+                        android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <!-- Nút Phụ kiện -->
             <androidx.cardview.widget.CardView
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
                 android:layout_margin="8dp"
+                android:foreground="?attr/selectableItemBackground"
                 android:clickable="true"
-                android:onClick="openPhuKien"
-                >
+                android:onClick="openPhuKien">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:backgroundTint="#FFF8E1"> <!-- Màu vàng nhạt -->
 
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/ic_accessory" />
+                        android:src="@drawable/ic_accessory"
+                        android:tint="#FFA000" /> <!-- Màu cam đậm -->
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Phụ kiện"
                         android:textSize="16sp"
-                        android:textColor="@android:color/black" />
+                        android:textColor="#FFA000"
+                        android:layout_marginTop="8dp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <!-- Nút Thống kê -->
             <androidx.cardview.widget.CardView
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
                 android:layout_margin="8dp"
+                android:foreground="?attr/selectableItemBackground"
                 android:clickable="true"
-                android:onClick="openThongKe"
-                >
+                android:onClick="openThongKe">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:backgroundTint="#E3F2FD"> <!-- Màu xanh nhạt -->
 
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/ic_report" />
+                        android:src="@drawable/ic_report"
+                        android:tint="#1E88E5" /> <!-- Màu xanh dương -->
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Thống kê"
                         android:textSize="16sp"
-                        android:textColor="@android:color/black" />
+                        android:textColor="#1E88E5"
+                        android:layout_marginTop="8dp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <!-- Nút Cài đặt -->
             <androidx.cardview.widget.CardView
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
                 android:layout_margin="8dp"
+                android:foreground="?attr/selectableItemBackground"
                 android:clickable="true"
-                >
+                android:onClick="openCaiDat">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:backgroundTint="#F3E5F5"> <!-- Màu tím nhạt -->
 
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/ic_setting" />
+                        android:src="@drawable/ic_setting"
+                        android:tint="#8E24AA" /> <!-- Màu tím đậm -->
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Cài đặt"
                         android:textSize="16sp"
-                        android:textColor="@android:color/black" />
+                        android:textColor="#8E24AA"
+                        android:layout_marginTop="8dp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
         </GridLayout>
-
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
