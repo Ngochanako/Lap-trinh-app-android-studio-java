@@ -27,8 +27,10 @@
         <activity android:name=".Accessory.AccessoryListActivity" />
         <activity android:name=".Accessory.AddAccessoryActivity" />
         <activity android:name=".Accessory.EditAccessoryActivity" />
+        <activity android:name=".ActivityCategory" />
+        <activity android:name=".Category.Phone.PhoneBrandActivity" />
         <activity android:name=".Report.ReportActivity" />
-
+        <activity android:name=".CategoryAccessory.AccessoryTypeActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

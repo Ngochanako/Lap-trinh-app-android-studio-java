@@ -63,6 +63,16 @@ public class DBHelper extends SQLiteOpenHelper {
                 "type TEXT, " +
                 "price REAL )";
         db.execSQL(createAccessoryTable);
+        // Tạo bảng PhoneBrand
+        String createPhoneBrandTable = "CREATE TABLE PhoneBrand (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "name TEXT NOT NULL)";
+        db.execSQL(createPhoneBrandTable);
+        // Tạo bảng AccesoryType
+        String createAccessoryTypeTable = "CREATE TABLE AccessoryType (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "name TEXT NOT NULL)";
+        db.execSQL(createAccessoryTypeTable);
     }
 
     @Override
@@ -312,5 +322,97 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         return result;
     }
+    // Thêm phone brand
+    public long addPhoneBrand(String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", name);
+        return db.insert("PhoneBrand", null, values);
+    }
 
+    // Lấy danh sách phone brand
+    public List<String> getAllPhoneBrands() {
+        List<String> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM PhoneBrand", null);
+        while (cursor.moveToNext()) {
+            list.add(cursor.getInt(0) + ". " + cursor.getString(1));
+        }
+        cursor.close();
+        return list;
+    }
+
+    // Sửa phone brand
+    public int updatePhoneBrand(int id, String newName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", newName);
+        return db.update("PhoneBrand", values, "id = ?", new String[]{String.valueOf(id)});
+    }
+
+    // Xóa phone brand
+    public int deletePhoneBrand(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete("PhoneBrand", "id = ?", new String[]{String.valueOf(id)});
+    }
+    // lấy brand
+    public List<String> getAllBrands() {
+        List<String> brands = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT name FROM PhoneBrand", null);
+        if (cursor.moveToFirst()) {
+            do {
+                brands.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return brands;
+    }
+    // Thêm AccessoryType
+    public long addAccessoryType(String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", name);
+        return db.insert("AccessoryType", null, values);
+    }
+
+    // Lấy danh sách AccessoryType (bao gồm cả id để hiển thị)
+    public List<String> getAllAccessoryTypesWithId() {
+        List<String> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM AccessoryType", null);
+        while (cursor.moveToNext()) {
+            list.add(cursor.getInt(0) + ". " + cursor.getString(1));
+        }
+        cursor.close();
+        return list;
+    }
+
+    // Sửa AccessoryType
+    public int updateAccessoryType(int id, String newName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", newName);
+        return db.update("AccessoryType", values, "id = ?", new String[]{String.valueOf(id)});
+    }
+
+    // Xóa AccessoryType
+    public int deleteAccessoryType(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete("AccessoryType", "id = ?", new String[]{String.valueOf(id)});
+    }
+
+    // Lấy danh sách AccessoryType (chỉ tên)
+    public List<String> getAllAccessoryTypes() {
+        List<String> types = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT name FROM AccessoryType", null);
+        if (cursor.moveToFirst()) {
+            do {
+                types.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return types;
+    }
 }

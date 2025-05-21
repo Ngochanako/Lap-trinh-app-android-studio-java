@@ -177,7 +177,7 @@
                 android:layout_margin="8dp"
                 android:foreground="?attr/selectableItemBackground"
                 android:clickable="true"
-                android:onClick="openCaiDat">
+                android:onClick="openDanhMuc">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -191,11 +191,10 @@
                         android:layout_height="50dp"
                         android:src="@drawable/ic_setting"
                         android:tint="#8E24AA" /> <!-- Màu tím đậm -->
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Cài đặt"
+                        android:text="Danh mục"
                         android:textSize="16sp"
                         android:textColor="#8E24AA"
                         android:layout_marginTop="8dp" />

@@ -5,9 +5,11 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,39 +20,50 @@ import com.myapplication.Modal.DienThoai;
 import com.myapplication.R;
 
 import java.io.IOException;
+import java.util.List;
 
 public class AddPhoneActivity extends AppCompatActivity {
-    private static final int PICK_IMAGE_REQUEST = 1; // Request code chọn ảnh
+    private static final int PICK_IMAGE_REQUEST = 1;
 
-    private EditText edtName, edtPrice, edtBrand;
+    private EditText edtName, edtPrice;
+    private Spinner spinnerBrand;
     private ImageView imgPhone;
     private Button btnSave, btnCancel, btnSelectImage;
     private DBHelper dbHelper;
-    private Uri selectedImageUri; // Lưu URI ảnh đã chọn
+    private Uri selectedImageUri;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_phone);
 
-        // Ánh xạ view
         edtName = findViewById(R.id.edtName);
         edtPrice = findViewById(R.id.edtPrice);
-        edtBrand = findViewById(R.id.edtBrand);
+        spinnerBrand = findViewById(R.id.spinnerBrand);
         imgPhone = findViewById(R.id.imgPreview);
         btnSave = findViewById(R.id.btnSave);
         btnCancel = findViewById(R.id.btnCancel);
         btnSelectImage = findViewById(R.id.btnChooseImage);
         dbHelper = new DBHelper(this);
 
-        // Xử lý chọn ảnh
+        loadBrands();
+
         btnSelectImage.setOnClickListener(v -> openImagePicker());
 
-        // Xử lý lưu
         btnSave.setOnClickListener(v -> savePhone());
 
-        // Xử lý hủy
         btnCancel.setOnClickListener(v -> finish());
+    }
+
+    private void loadBrands() {
+        List<String> brands = dbHelper.getAllBrands();
+        if (brands.isEmpty()) {
+            brands.add("Chưa có thương hiệu nào");
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, brands);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerBrand.setAdapter(adapter);
     }
 
     private void openImagePicker() {
@@ -63,12 +76,11 @@ public class AddPhoneActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            selectedImageUri = data.getData(); // Lưu URI của ảnh đã chọn
+            selectedImageUri = data.getData();
             Glide.with(this)
                     .load(selectedImageUri)
                     .into(imgPhone);
             try {
-                // Hiển thị ảnh trên ImageView
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
                 imgPhone.setImageBitmap(bitmap);
             } catch (IOException e) {
@@ -81,8 +93,9 @@ public class AddPhoneActivity extends AppCompatActivity {
     private void savePhone() {
         String name = edtName.getText().toString().trim();
         String priceStr = edtPrice.getText().toString().trim();
-        String brand = edtBrand.getText().toString().trim();
-        if (name.isEmpty() || priceStr.isEmpty() || brand.isEmpty()) {
+        String brand = spinnerBrand.getSelectedItem().toString();
+
+        if (name.isEmpty() || priceStr.isEmpty() || brand.isEmpty() || brand.equals("Chưa có thương hiệu nào")) {
             Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -100,18 +113,14 @@ public class AddPhoneActivity extends AppCompatActivity {
             return;
         }
 
-        int newId = (int) System.currentTimeMillis(); // Tạo ID duy nhất
+        int newId = (int) System.currentTimeMillis();
 
-        // Nếu người dùng chọn ảnh từ thư viện, lưu URI thành chuỗi
         String imageUriString = (selectedImageUri != null) ? selectedImageUri.toString() : "";
 
-        // Dùng ảnh từ thư viện, nên để imageResId là chuỗi rỗng
         DienThoai newPhone = new DienThoai(newId, name, price, brand, imageUriString);
 
-        // Lưu vào database
         dbHelper.insertPhone(newPhone);
 
-        // Trả kết quả về Activity trước
         Intent resultIntent = new Intent();
         resultIntent.putExtra("id", newId);
         resultIntent.putExtra("name", name);

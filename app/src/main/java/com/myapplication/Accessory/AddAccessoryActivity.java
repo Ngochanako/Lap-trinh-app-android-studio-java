@@ -20,6 +20,7 @@ import com.myapplication.Modal.Accessory;
 import com.myapplication.R;
 
 import java.io.IOException;
+import java.util.List;
 
 public class AddAccessoryActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -35,13 +36,8 @@ public class AddAccessoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_accessory);
         spinnerAccessoryType = findViewById(R.id.spinnerAccessoryType);
-
-        // Dữ liệu mẫu cho Spinner
-        String[] types = {"Ốp lưng", "Tai nghe", "Sạc", "Khác"};
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, types);
-        spinnerAccessoryType.setAdapter(adapter);
-
+        dbHelper = new DBHelper(this);
+        loadAccessoryTypes();
         // Ánh xạ view
         edtName = findViewById(R.id.edtAccessoryName);
         edtPrice = findViewById(R.id.edtAccessoryPrice);
@@ -51,11 +47,20 @@ public class AddAccessoryActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSaveAccessory);
         btnCancel = findViewById(R.id.btnCancelAccessory);
         btnChooseImage = findViewById(R.id.btnChooseAccessoryImage);
-        dbHelper = new DBHelper(this);
-
+        spinnerAccessoryType = findViewById(R.id.spinnerAccessoryType);
         btnChooseImage.setOnClickListener(v -> openImagePicker());
         btnCancel.setOnClickListener(v -> finish());
         btnSave.setOnClickListener(v -> saveAccessory());
+    }
+    private void loadAccessoryTypes() {
+        List<String> types = dbHelper.getAllAccessoryTypes();
+        if (types.isEmpty()) {
+            types.add("Chưa có loại phụ kiện nào");
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, types);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAccessoryType.setAdapter(adapter);
     }
 
     private void openImagePicker() {
@@ -88,7 +93,7 @@ public class AddAccessoryActivity extends AppCompatActivity {
         String brand = edtBrand.getText().toString().trim();
         String description = edtDescription.getText().toString().trim();
         String type = spinnerAccessoryType.getSelectedItem().toString();
-        if (name.isEmpty() || priceStr.isEmpty() || brand.isEmpty() || description.isEmpty()) {
+        if (name.isEmpty() || priceStr.isEmpty() || brand.isEmpty() || description.isEmpty() || type.equals("Chưa có loại phụ kiện nào")) {
             Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
             return;
         }

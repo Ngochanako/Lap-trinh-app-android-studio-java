@@ -33,4 +33,8 @@ public class QuanLyActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ReportActivity.class);
         startActivity(intent);
     }
+    public void openDanhMuc(View view) {
+        Intent intent = new Intent(this, ActivityCategory.class);
+        startActivity(intent);
+    }
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#DFF5E1"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Tiêu đề -->
+<TextView
+android:text="Manage Category"
+android:textSize="32sp"
+android:textStyle="bold"
+android:textColor="#2E7D6B"
+    android:layout_marginBottom="64dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+
+    <!-- Danh mục điện thoại -->
+<LinearLayout
+android:id="@+id/btnPhoneCategory"
+android:orientation="vertical"
+android:gravity="center"
+android:layout_gravity="center"
+android:padding="16dp"
+android:background="@drawable/category_background"
+android:layout_marginBottom="24dp"
+android:layout_width="220dp"
+android:layout_height="220dp">
+
+<ImageView
+    android:src="@drawable/ic_phone"
+    android:layout_width="100dp"
+    android:layout_height="100dp" />
+
+<TextView
+    android:text="Phone"
+    android:textSize="20sp"
+    android:textStyle="bold"
+    android:textColor="#388E7C"
+android:layout_marginTop="16dp"
+android:gravity="center"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content" />
+</LinearLayout>
+
+    <!-- Danh mục phụ kiện -->
+<LinearLayout
+android:id="@+id/btnAccessoryCategory"
+android:orientation="vertical"
+android:gravity="center"
+android:layout_gravity="center"
+android:padding="16dp"
+android:background="@drawable/category_background"
+android:layout_width="220dp"
+android:layout_height="220dp">
+
+<ImageView
+    android:src="@drawable/ic_accessory"
+    android:layout_width="100dp"
+    android:layout_height="100dp" />
+
+<TextView
+    android:text="Accessory"
+    android:textSize="20sp"
+    android:textStyle="bold"
+    android:textColor="#388E7C"
+    android:layout_marginTop="16dp"
+    android:gravity="center"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+</LinearLayout>
+    </LinearLayout>

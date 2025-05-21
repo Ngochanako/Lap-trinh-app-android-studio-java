@@ -47,14 +47,11 @@
             android:layout_marginTop="10dp"/>
 
         <!-- Thương hiệu -->
-        <EditText
-            android:id="@+id/edtBrand"
+        <Spinner
+            android:id="@+id/spinnerBrand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Thương hiệu"
-            android:minHeight="48dp"
-            android:inputType="text"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp" />
 
         <!-- Nút Cập nhật -->
         <Button
